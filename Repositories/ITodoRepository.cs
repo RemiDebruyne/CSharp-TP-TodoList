@@ -14,5 +14,7 @@ namespace ToDoList.Repositories
 
         public bool Delete(int id);
 
+        public bool UpdateStatus(T entity);
+
     }
 }

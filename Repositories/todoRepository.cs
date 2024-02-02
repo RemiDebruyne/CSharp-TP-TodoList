@@ -39,6 +39,19 @@ namespace ToDoList.Repositories
             return _context.SaveChanges() > 0;
         }
 
+        public bool UpdateStatus(Todo todo)
+        {
+            var todoFromDb = GetById(todo.Id);
+
+            if (todoFromDb == null)
+                return false;
+
+            if (todoFromDb.status != todo.status)
+                todoFromDb.status = todo.status;
+
+            return _context.SaveChanges() > 0; 
+        }
+
         public Todo? GetById(int id)
         {
             return _context.Todos.Find(id);

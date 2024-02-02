@@ -1,0 +1,61 @@
+﻿@using ToDoList.Enum
+@model List<Todo>
+@{
+}
+
+<h1>Mes Todos</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Description</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var todo in Model)
+            {
+                <tr>
+                    <th scope="row">@todo.Id</th>
+                    <td>@todo.Titre</td>
+                    <td>@todo.Description</td>
+                    <td>
+                        <div class="dropdown">
+                            @*    @{
+                    if (todo.status == TodoStatus.A_FAIRE)
+                    {
+                    <a class="btn btn-danger dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    A faire
+                    </a>
+                    }
+                    else
+                    {
+                    <a class="btn btn-success dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Terminé
+                    </a>
+                    }
+                    }
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-action="Edit" asp-route-status="@TodoStatus.A_FAIRE" asp-route-itemid="@todo.Id">A faire</a></li>
+                    <li><a class="dropdown-item" asp-action="Edit" asp-route-status="@TodoStatus.TERMINEE" asp-route-itemid="@todo.Id">Terminée</a></li>
+                    </ul>*@
+
+                            <form asp-action="UpdateStatus" id="form">
+                                <input asp-for="@todo.Id" type="hidden" />
+                                <select asp-for="@todo.status" onchange="StatusChange(@todo)">
+                                    <option asp-for="@todo.status" value="">A faire</option>
+                                    <option asp-for="@todo.status" value="">Terminée</option>
+                                </select>
+                            </form>
+                        </div>
+                    </td>
+                    <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@todo.Id">X</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
